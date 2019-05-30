@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: eureka-server
+    
+#server:
+  #port: 2001
+  
+eureka:
+  server:
+  #开发环境下,关闭保护模式
+    enable-self-preservation: false
+  #instance:
+   # hostname: eureka1
+  #client:
+  #避免向自己注册自己
+   # register-with-eureka: false
+    #fetch-registry: false
+    
+---
+spring:
+  profiles: eureka1
+
+server:
+  port: 2001
+  
+# eureka1 向 eureka2 注册
+eureka:
+  instance:
+    hostname: eureka1
+  client:
+    service-url:
+    #eureka1连接eureka2,向他注册,从他拉取信息 
+      defaultZone: http://eureka2:2002/eureka
+
+---
+spring:
+  profiles: eureka2
+
+server:
+  port: 2002
+  
+# eureka2 向 eureka1 注册
+eureka:
+  instance:
+    hostname: eureka2
+  client:
+    service-url:
+      defaultZone: http://eureka1:2001/eureka
+  
