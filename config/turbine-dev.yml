@@ -1,6 +1,6 @@
 spring:
   application:
-    name: turbine
+    name: turbin
     
 server:
   port: 5001
